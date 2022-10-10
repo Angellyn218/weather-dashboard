@@ -38,8 +38,11 @@ function getApi() {
             console.log(data);
             coord.lat = data.coord.lat;
             coord.lon = data.coord.lon;
+            getLatLon()
         })
-    
+}
+
+function getLatLon() {
     var latLonURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" + coord.lat + "&lon=" + coord.lon + "&appid=" + APIKey;
 
     fetch(latLonURL)
