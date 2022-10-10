@@ -1,7 +1,19 @@
 // variables needed:
 // current city
+var currCity = {
+    name: "",
+    icon: "",
+    temp: "",
+    wind: "", 
+    humidity: ""
+}
 // array of cities (objects)
+var cities = [];
 // elements on html page (search form, city-sect, days-sect)
+var searchBtnEl = document.getElementById('search-btn');
+var buttonSectEl = document.getElementById('button-sect')
+var citySectEl = document.getElementById('city-sect');
+var daysSectEl = document.getElementById('days-sect');
 // link variables (api-key, api link, city)
 var city = "San Mateo";
 var APIKey = "f347914f811d823cd34cc8b05f4907bc";
