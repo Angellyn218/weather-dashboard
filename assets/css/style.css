@@ -1,0 +1,68 @@
+:root {
+    --main-header-grad: rgb(0, 94, 255), rgb(1, 1, 138);
+    --main-header-text: white;
+    --primary-button-color: rgb(0, 183, 255);
+    --primary-button-text: white;
+    --button-color: gray;
+    --button-text: black;
+    --day-color: rgb(1, 9, 56);
+    --day-text: white;
+    --margin: 5px 10px;
+}
+
+.main-header {
+    background-image: linear-gradient(90deg, var(--main-header-grad));
+    color: var(--main-header-text);
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+#search-title {
+    margin: var(--margin);
+}
+
+#city-input {
+    margin: var(--margin);
+}
+
+.btn {
+    width: 100%;
+    background-color: var(--button-color);
+    color: var(--button-text);
+    margin: var(--margin);
+}
+
+#primary-btn {
+    background-color: var(--primary-button-color);
+    color: var(--primary-button-text);
+}
+
+.city-sect {
+    margin: var(--margin);
+    border: 1px solid gray;
+    align-items: left;
+}
+
+#city-title {
+    margin-top: 10px;
+}
+
+#days-title {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.days-sect {
+    justify-content: left;
+}
+
+.day {
+    text-align: left;
+    padding: 5px;
+    background-color: var(--day-color);
+    color: var(--day-text);
+}
