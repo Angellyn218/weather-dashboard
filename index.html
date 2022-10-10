@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+
+    <title>Weather Dashboard</title>
+</head>
+<body>
+    <div class="row main-header">
+        <h1>Weather Dashboard</h1>
+    </div>
+    <div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="search-sect">
+                    <h2>Search for a City</h2>
+                    <form>
+                        <input type="text" class="form-control" id="city-input" placeholder="City Name">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </form>
+                </div>
+                <hr/>
+                <div class="button-sect">
+                    
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="row city-sect">
+                    <h1 id="city-title">City Title</h1>
+                    
+                </div>
+                <div class="row 5day-sect">
+                    <h2 id="5-day-title">5-Day Forcast:</h2>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="./assets/js/script.js"></script>
+</body>
+</html>
