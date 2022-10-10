@@ -2,10 +2,53 @@
 // current city
 var currCity = {
     name: "",
+    day: "",
     icon: "",
     temp: "",
     wind: "", 
-    humidity: ""
+    humidity: "",
+    days: [
+        // day 1
+        {
+            day: "",
+            icon: "",
+            temp: "",
+            wind: "", 
+            humidity: ""
+        },
+        // day 2
+        {
+            day: "",
+            icon: "",
+            temp: "",
+            wind: "", 
+            humidity: ""
+        },
+        // day 3
+        {
+            day: "",
+            icon: "",
+            temp: "",
+            wind: "", 
+            humidity: ""
+        },
+        // day 4
+        {
+            day: "",
+            icon: "",
+            temp: "",
+            wind: "", 
+            humidity: ""
+        },
+        // day 5
+        {
+            day: "",
+            icon: "",
+            temp: "",
+            wind: "", 
+            humidity: ""
+        }
+    ]
 }
 // array of cities (objects)
 var cities = [];
@@ -37,7 +80,7 @@ function getCityApi(event) {
     currCity.name = cityInputEl.value;
     var city = currCity.name;
 
-    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
+    var queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial&appid=" + APIKey;
 
     fetch(queryURL)
         .then(function (response) {
@@ -45,23 +88,6 @@ function getCityApi(event) {
         })
         .then(function (data) {
             cityInputEl.value = "";
-            console.log("from city:");
-            console.log(data);
-            coord.lat = data.coord.lat;
-            coord.lon = data.coord.lon;
-            getLatLonApi()
-        })
-}
-
-function getLatLonApi() {
-    var latLonURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" + coord.lat + "&lon=" + coord.lon + "&appid=" + APIKey;
-
-    fetch(latLonURL)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            console.log("from lat & lon");
             console.log(data);
         })
 }
