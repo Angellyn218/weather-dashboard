@@ -18,6 +18,11 @@ var daysSectEl = document.getElementById('days-sect');
 var city = "San Mateo";
 var APIKey = "f347914f811d823cd34cc8b05f4907bc";
 
+var coord = {
+    lat: 0,
+    lon: 0
+}
+
 // What to do
 
 // fetch weather forcast of city using link use
@@ -29,6 +34,20 @@ function getApi() {
             return response.json();
         })
         .then(function (data) {
+            console.log("from city:");
+            console.log(data);
+            coord.lat = data.coord.lat;
+            coord.lon = data.coord.lon;
+        })
+    
+    var latLonURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" + coord.lat + "&lon=" + coord.lon + "&appid=" + APIKey;
+
+    fetch(latLonURL)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log("from lat & lon");
             console.log(data);
         })
 }
