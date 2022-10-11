@@ -187,7 +187,7 @@ function getApiDays() {
                 // humidity
                 var humidity = curr.main.humidity;
                 currCity.days[i].humidity = humidity;
-                humidities[i].textContent = "Humidity: " + currCity.humidity + "%";
+                humidities[i].textContent = "Humidity: " + humidity + "%";
 
             }
             console.log(currCity);
@@ -226,11 +226,60 @@ function getCityData(event) {
         console.log("not a button");
         return;
     }
-    console.log(key);
+    var key = button.getAttribute('data-key');
     for (var i = 0; i < cities.length; i++) {
         if (cities[i].key === key) {
             setCityData(cities[i].city);
         }
+    }
+}
+
+// sets city data into appropriate elements
+function setCityData(city) {
+    // first title
+    var firstTitleEl = citySectEl.querySelector('#city-title');
+    firstTitleEl.textContent = city.title;
+    
+    // first icon
+    var firstIconEl = citySectEl.querySelector('.icon');
+    firstIconEl.setAttribute("src", city.icon);
+
+
+    // first temp
+    var firstTempEl = citySectEl.querySelector('.temp');
+    firstTempEl.textContent = "Temp: " + city.temp + " °F";
+
+    // first wind
+    var firstWindEl = citySectEl.querySelector('.wind');
+    firstWindEl.textContent = "Wind: " + city.wind + " MPH";
+
+    // first humidity
+    var firstHumidityEl = citySectEl.querySelector('.humidity');
+    firstHumidityEl.textContent = "Humidity: " + city.humidity + "%";
+
+    // days
+    var dates = daysSectEl.querySelectorAll(".dates");
+    var icons = daysSectEl.querySelectorAll(".icon");
+    var temps = daysSectEl.querySelectorAll(".temp");
+    var winds = daysSectEl.querySelectorAll(".wind");
+    var humidities = daysSectEl.querySelectorAll(".humidity");
+
+    for (var i = 0; i < 5; i++) {
+        // date
+        dates[i].textContent = city.days[i].date;
+
+        // icon
+        icons[i].setAttribute("src", city.days[i].icon);
+
+        // temp
+        temps[i].textContent = "Temp: " + city.days[i].temp + " °F";
+
+        // wind
+        winds[i].textContent = "Wind: " + city.days[i].wind + " MPH";
+
+        // humidity
+        humidities[i].textContent = "Humidity: " + city.days[i].humidity + "%";
+
     }
 }
 
