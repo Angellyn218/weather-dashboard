@@ -90,6 +90,17 @@ function getApi(event) {
             cityInputEl.value = "";
             console.log(data);
 
+            // Title
+            var firstTitleEl = citySectEl.querySelector('#city-title');
+            var dt_txt = data.list[0].dt_txt.split(' ')[0];
+            var dt_txt_arr = dt_txt.split('-');
+            var date = dt_txt_arr[1].concat("/", dt_txt_arr[2], "/", dt_txt_arr[0]);
+            console.log(date);
+
+            var title =  currCity.name.concat(" (" + date + ")");
+            console.log(title);
+            firstTitleEl.textContent = title;
+            
             // first icon
             currCity.icon = "http://openweathermap.org/img/w/" + data.list[0].weather[0].icon + ".png"
             var firstIconEl = citySectEl.querySelector('.icon');
