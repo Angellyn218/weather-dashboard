@@ -1,8 +1,6 @@
 // variables needed:
 // current city
 var currCity = {
-    name: "",
-    date: "",
     title: "",
     icon: "",
     temp: "",
@@ -51,6 +49,9 @@ var currCity = {
         }
     ]
 }
+var currKey = "";
+var currDate = "";
+
 // array of cities (objects)
 var cities = [];
 // elements on html page (search form, city-sect, days-sect)
@@ -70,7 +71,7 @@ var coord = {
 // What to do
 
 // fetch today's weather 
-
+// input data into city sect
 function getApiToday(event) {
     event.preventDefault();
 
@@ -79,9 +80,9 @@ function getApiToday(event) {
         return;
     }
 
-    currCity.name = cityInputEl.value;
+    currKey = cityInputEl.value;
 
-    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + currCity.name + "&units=imperial&appid=" + APIKey;
+    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + currKey + "&units=imperial&appid=" + APIKey;
 
     fetch(queryURL)
         .then(function (response) {
@@ -93,10 +94,10 @@ function getApiToday(event) {
 
             // first title
             var firstTitleEl = citySectEl.querySelector('#city-title');
-            currCity.date = new Date(data.dt * 1000).toLocaleDateString("en-US"); 
-            console.log(currCity.date);
+            currDate = new Date(data.dt * 1000).toLocaleDateString("en-US"); 
+            console.log(currDate);
 
-            var title =  currCity.name.concat(" (" + currCity.date + ") ");
+            var title =  currKey.concat(" (" + currDate + ") ");
             console.log(title);
             firstTitleEl.textContent = title;
             currCity.title = title;
@@ -126,9 +127,10 @@ function getApiToday(event) {
 
 
 // fetch weather forcast of city using link use
+// input data into days sect
 function getApiDays() {
 
-    var queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + currCity.name + "&units=imperial&appid=" + APIKey;
+    var queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + currKey + "&units=imperial&appid=" + APIKey;
 
     fetch(queryURL)
         .then(function (response) {
@@ -171,14 +173,22 @@ function getApiDays() {
                 humidities[i].textContent = "Humidity: " + currCity.humidity + "%";
 
             }
+            console.log(currCity);
+            
+            createCityButton();
         })
 }
 
-// input data into city sect
-// fetch 5 day forcast of city
-// input data into days sect
-
 // create button for a city
+function createCityButton() {
+    // <button type="submit" class="btn" id="search-btn">Search</button>
+    var buttonEl = document.createElement('button');
+    buttonEl.setAttribute('class', 'btn');
+    buttonEl.textContent = currKey;
+    
+    buttonSectEl.appendChild(buttonEl);
+}
+
 // city data into array then local storage
 // call get Api function after button search button pressed
 searchBtnEl.addEventListener('click', getApiToday);
