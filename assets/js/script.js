@@ -2,7 +2,7 @@
 // current city
 var currCity = {
     name: "",
-    day: "",
+    date: "",
     icon: "",
     temp: "",
     wind: "", 
@@ -10,7 +10,7 @@ var currCity = {
     days: [
         // day 1
         {
-            day: "",
+            date: "",
             icon: "",
             temp: "",
             wind: "", 
@@ -18,7 +18,7 @@ var currCity = {
         },
         // day 2
         {
-            day: "",
+            date: "",
             icon: "",
             temp: "",
             wind: "", 
@@ -26,7 +26,7 @@ var currCity = {
         },
         // day 3
         {
-            day: "",
+            date: "",
             icon: "",
             temp: "",
             wind: "", 
@@ -34,7 +34,7 @@ var currCity = {
         },
         // day 4
         {
-            day: "",
+            date: "",
             icon: "",
             temp: "",
             wind: "", 
@@ -42,7 +42,7 @@ var currCity = {
         },
         // day 5
         {
-            day: "",
+            date: "",
             icon: "",
             temp: "",
             wind: "", 
@@ -69,7 +69,7 @@ var coord = {
 // What to do
 
 // fetch weather forcast of city using link use
-function getCityApi(event) {
+function getApi(event) {
     event.preventDefault();
 
     if (cityInputEl.value === "") {
@@ -89,6 +89,13 @@ function getCityApi(event) {
         .then(function (data) {
             cityInputEl.value = "";
             console.log(data);
+
+            // first icon
+            currCity.icon = "http://openweathermap.org/img/w/" + data.list[0].weather[0].icon + ".png"
+            var firstIconEl = citySectEl.querySelector('.icon');
+            firstIconEl.setAttribute("src", currCity.icon)
+
+
         })
 }
 
@@ -99,4 +106,4 @@ function getCityApi(event) {
 // create button for a city
 // city data into array then local storage
 // call get Api function after button search button pressed
-searchBtnEl.addEventListener('click', getCityApi);
+searchBtnEl.addEventListener('click', getApi);
