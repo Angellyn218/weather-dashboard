@@ -19,4 +19,6 @@ For UNIX date understanding: https://stackoverflow.com/questions/847185/convert-
 
 Child query selector: https://bobbyhadz.com/blog/javascript-get-child-element-by-id
 
+Setting key using variable: https://stackoverflow.com/questions/11508463/javascript-set-object-key-by-variable
+
 

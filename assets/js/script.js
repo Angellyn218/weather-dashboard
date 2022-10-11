@@ -70,6 +70,8 @@ var coord = {
 
 // What to do
 
+//
+
 // fetch today's weather 
 // input data into city sect
 function getApiToday(event) {
@@ -174,7 +176,7 @@ function getApiDays() {
 
             }
             console.log(currCity);
-            
+
             createCityButton();
         })
 }
@@ -187,8 +189,18 @@ function createCityButton() {
     buttonEl.textContent = currKey;
     
     buttonSectEl.appendChild(buttonEl);
+
+    storeCity();
 }
 
 // city data into array then local storage
+function storeCity() {
+    var city = {};
+    city[currKey] = currCity;
+    cities.push(city);
+
+    localStorage.setItem("cities", JSON.stringify(cities));
+}
+
 // call get Api function after button search button pressed
 searchBtnEl.addEventListener('click', getApiToday);
