@@ -73,10 +73,11 @@ var coord = {
 // initialize page by loading cities from local storage
 function loadFromStorage() {
     var citiesFromStorage = JSON.parse(localStorage.getItem('cities'));
-    if (citiesFromStorage) {
-        cities = citiesFromStorage;
+    if (!citiesFromStorage) {
+        return;
     }
-
+    cities = citiesFromStorage;
+    console.log(cities);
     for (var i = 0; i < cities.length; i++) {
         var buttonEl = document.createElement('button');
         buttonEl.setAttribute('class', 'btn');
@@ -163,7 +164,7 @@ function getApiDays() {
             var humidities = daysSectEl.querySelectorAll(".humidity");
 
             for (var i = 0; i < 5; i++) {
-                var curr = data.list[i];
+                var curr = data.list[(i + 1) * 8 - 1];
                 // date
                 var date = new Date(curr.dt * 1000).toLocaleDateString("en-US");
                 currCity.days[i].date = date;
@@ -203,6 +204,7 @@ function createCityButton() {
     buttonEl.setAttribute('class', 'btn');
     buttonEl.setAttribute('data-key', currKey);
     buttonEl.textContent = currKey;
+    buttonEl.addEventListener('click',setCityData);
     
     buttonSectEl.appendChild(buttonEl);
 
@@ -212,8 +214,8 @@ function createCityButton() {
 // city data into array then local storage
 function storeCity() {
     var city = {};
-    city['key'] = currKey;
-    city['city'] = currCity;
+    city.key = JSON.parse(JSON.stringify(currKey));
+    city.city = JSON.parse(JSON.stringify(currCity));
     cities.push(city);
 
     localStorage.setItem("cities", JSON.stringify(cities));
@@ -222,13 +224,19 @@ function storeCity() {
 // retrieve stored city data when button is pressed
 function getCityData(event) {
     var button = event.target;
+    console.log(button);
     if (button.getAttribute('class') !== 'btn') {
         console.log("not a button");
         return;
     }
     var key = button.getAttribute('data-key');
+    console.log(key);
+
     for (var i = 0; i < cities.length; i++) {
+        console.log(cities[i].key === key);
+        var city = cities[i];
         if (cities[i].key === key) {
+            console.log(cities[i].city);
             setCityData(cities[i].city);
         }
     }
@@ -287,5 +295,5 @@ function setCityData(city) {
 loadFromStorage();
 // call get Api function after button search button pressed
 searchBtnEl.addEventListener('click', getApiToday);
-// call function to retrieve stored city data when button is pressed
+
 buttonSectEl.addEventListener('click', getCityData);
