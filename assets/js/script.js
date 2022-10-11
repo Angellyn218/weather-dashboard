@@ -98,17 +98,17 @@ function getApiToday(event) {
             currCity.date = date;
             console.log(date);
 
-            var title =  currCity.name.concat(" (" + date + ")");
+            var title =  currCity.name.concat(" (" + date + ") ");
             console.log(title);
             firstTitleEl.textContent = title;
             currCity.title = title;
             
-            // // first icon
-            // currCity.icon = "http://openweathermap.org/img/w/" + data.list[0].weather[0].icon + ".png"
-            // var firstIconEl = citySectEl.querySelector('.icon');
-            // firstIconEl.setAttribute("src", currCity.icon);
+            // first icon
+            currCity.icon = "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png"
+            var firstIconEl = citySectEl.querySelector('.icon');
+            firstIconEl.setAttribute("src", currCity.icon);
 
-            // // first temp
+            // first temp
         })
 }
 
