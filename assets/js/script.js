@@ -109,6 +109,18 @@ function getApiToday(event) {
             firstIconEl.setAttribute("src", currCity.icon);
 
             // first temp
+            currCity.temp = data.main.temp
+            var firstTempEl = citySectEl.querySelector('.temp');
+            firstTempEl.textContent = "Temp: " + currCity.temp + " °F";
+
+            // first 
+            currCity.wind = data.wind.speed;
+            var firstWindEl = citySectEl.querySelector('.wind');
+            firstWindEl.textContent = "Wind: " + currCity.wind + " MPH"
+
+            currCity.humidity = data.main.humidity;
+            var firstHumidityEl = citySectEl.querySelector('.humidity');
+            firstHumidityEl.textContent = "Humidity: " + currCity.humidity + "%";
         })
 }
 
