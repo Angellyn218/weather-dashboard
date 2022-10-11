@@ -42,6 +42,7 @@
 }
 
 #city-sect {
+    display: none;
     margin: var(--margin);
     border: 1px solid gray;
     align-items: left;
@@ -51,12 +52,13 @@
     margin-top: 10px;
 }
 
-#days-title {
-    margin-left: 10px;
-    margin-top: 10px;
+#days-title-sect {
+    display: none;
 }
 
+
 #days-sect {
+    display: none;
     justify-content: left;
 }
 

@@ -59,6 +59,7 @@ var cityInputEl = document.getElementById('city-input');
 var searchBtnEl = document.getElementById('search-btn');
 var buttonSectEl = document.getElementById('button-sect')
 var citySectEl = document.getElementById('city-sect');
+var daysTitleSectEl = document.getElementById('days-title-sect');
 var daysSectEl = document.getElementById('days-sect');
 // link variables (api-key, api link, city)
 var APIKey = "f347914f811d823cd34cc8b05f4907bc";
@@ -193,6 +194,8 @@ function getApiDays() {
             }
             console.log(currCity);
 
+            changeVisibility();
+
             createCityButton();
         })
 }
@@ -229,6 +232,8 @@ function getCityData(event) {
         console.log("not a button");
         return;
     }
+    changeVisibility();
+
     var key = button.getAttribute('data-key');
     console.log(key);
 
@@ -288,6 +293,20 @@ function setCityData(city) {
         // humidity
         humidities[i].textContent = "Humidity: " + city.days[i].humidity + "%";
 
+    }
+}
+
+// change visibility to shown
+function changeVisibility() {
+    if (citySectEl.getAttribute('data-visibility') === "hidden") {
+        citySectEl.setAttribute('data-visibility', 'visible');
+        citySectEl.setAttribute('style', 'display: inline');
+
+        daysTitleSectEl.setAttribute('data-visibility', 'visible');
+        daysTitleSectEl.setAttribute('style', 'display: inline');
+
+        daysSectEl.setAttribute('data-visibility', 'visible');
+        daysSectEl.setAttribute('style', 'display: flex');
     }
 }
 
