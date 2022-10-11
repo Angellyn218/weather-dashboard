@@ -80,7 +80,8 @@ function loadFromStorage() {
     for (var i = 0; i < cities.length; i++) {
         var buttonEl = document.createElement('button');
         buttonEl.setAttribute('class', 'btn');
-        buttonEl.textContent = Object.keys(cities[i])[0];
+        buttonEl.setAttribute('data-key', cities[i].key);
+        buttonEl.textContent = cities[i].key;
         
         buttonSectEl.appendChild(buttonEl);
     }
@@ -200,6 +201,7 @@ function createCityButton() {
     // <button type="submit" class="btn" id="search-btn">Search</button>
     var buttonEl = document.createElement('button');
     buttonEl.setAttribute('class', 'btn');
+    buttonEl.setAttribute('data-key', currKey);
     buttonEl.textContent = currKey;
     
     buttonSectEl.appendChild(buttonEl);
@@ -210,12 +212,31 @@ function createCityButton() {
 // city data into array then local storage
 function storeCity() {
     var city = {};
-    city[currKey] = currCity;
+    city['key'] = currKey;
+    city['city'] = currCity;
     cities.push(city);
 
     localStorage.setItem("cities", JSON.stringify(cities));
 }
 
+// retrieve stored city data when button is pressed
+function getCityData(event) {
+    var button = event.target;
+    if (button.getAttribute('class') !== 'btn') {
+        console.log("not a button");
+        return;
+    }
+    console.log(key);
+    for (var i = 0; i < cities.length; i++) {
+        if (cities[i].key === key) {
+            setCityData(cities[i].city);
+        }
+    }
+}
+
+// load cities from local storage
 loadFromStorage();
 // call get Api function after button search button pressed
 searchBtnEl.addEventListener('click', getApiToday);
+// call function to retrieve stored city data when button is pressed
+buttonSectEl.addEventListener('click', getCityData);
