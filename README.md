@@ -21,4 +21,6 @@ Child query selector: https://bobbyhadz.com/blog/javascript-get-child-element-by
 
 Setting key using variable: https://stackoverflow.com/questions/11508463/javascript-set-object-key-by-variable
 
+Get key name from object: https://www.geeksforgeeks.org/how-to-get-the-first-key-name-of-a-javascript-object/ 
+
 

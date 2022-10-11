@@ -70,7 +70,21 @@ var coord = {
 
 // What to do
 
-//
+// initialize page by loading cities from local storage
+function loadFromStorage() {
+    var citiesFromStorage = JSON.parse(localStorage.getItem('cities'));
+    if (citiesFromStorage) {
+        cities = citiesFromStorage;
+    }
+
+    for (var i = 0; i < cities.length; i++) {
+        var buttonEl = document.createElement('button');
+        buttonEl.setAttribute('class', 'btn');
+        buttonEl.textContent = Object.keys(cities[i])[0];
+        
+        buttonSectEl.appendChild(buttonEl);
+    }
+}
 
 // fetch today's weather 
 // input data into city sect
@@ -202,5 +216,6 @@ function storeCity() {
     localStorage.setItem("cities", JSON.stringify(cities));
 }
 
+loadFromStorage();
 // call get Api function after button search button pressed
 searchBtnEl.addEventListener('click', getApiToday);
