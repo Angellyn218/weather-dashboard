@@ -80,9 +80,8 @@ function getApiToday(event) {
     }
 
     currCity.name = cityInputEl.value;
-    var city = currCity.name;
 
-    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=" + APIKey;
+    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + currCity.name + "&units=imperial&appid=" + APIKey;
 
     fetch(queryURL)
         .then(function (response) {
@@ -94,11 +93,10 @@ function getApiToday(event) {
 
             // first title
             var firstTitleEl = citySectEl.querySelector('#city-title');
-            var date = new Date(data.dt * 1000).toLocaleDateString("en-US");
-            currCity.date = date;
-            console.log(date);
+            currCity.date = new Date(data.dt * 1000).toLocaleDateString("en-US"); 
+            console.log(currCity.date);
 
-            var title =  currCity.name.concat(" (" + date + ") ");
+            var title =  currCity.name.concat(" (" + currCity.date + ") ");
             console.log(title);
             firstTitleEl.textContent = title;
             currCity.title = title;
@@ -109,18 +107,20 @@ function getApiToday(event) {
             firstIconEl.setAttribute("src", currCity.icon);
 
             // first temp
-            currCity.temp = data.main.temp
+            currCity.temp = data.main.temp;
             var firstTempEl = citySectEl.querySelector('.temp');
             firstTempEl.textContent = "Temp: " + currCity.temp + " °F";
 
             // first 
             currCity.wind = data.wind.speed;
             var firstWindEl = citySectEl.querySelector('.wind');
-            firstWindEl.textContent = "Wind: " + currCity.wind + " MPH"
+            firstWindEl.textContent = "Wind: " + currCity.wind + " MPH";
 
             currCity.humidity = data.main.humidity;
             var firstHumidityEl = citySectEl.querySelector('.humidity');
             firstHumidityEl.textContent = "Humidity: " + currCity.humidity + "%";
+
+            getApiDays();
         })
 }
 
@@ -128,15 +128,7 @@ function getApiToday(event) {
 // fetch weather forcast of city using link use
 function getApiDays() {
 
-    if (cityInputEl.value === "") {
-        console.log("No value in text input")
-        return;
-    }
-
-    currCity.name = cityInputEl.value;
-    var city = currCity.name;
-
-    var queryURL = "http://api.openweathermap.org/data/2.5/forcast?q=" + city + "&units=imperial&appid=" + APIKey;
+    var queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + currCity.name + "&units=imperial&appid=" + APIKey;
 
     fetch(queryURL)
         .then(function (response) {
@@ -145,24 +137,40 @@ function getApiDays() {
         .then(function (data) {
             cityInputEl.value = "";
             console.log(data);
+            var dates = daysSectEl.querySelectorAll(".dates");
+            var icons = daysSectEl.querySelectorAll(".icon");
+            var temps = daysSectEl.querySelectorAll(".temp");
+            var winds = daysSectEl.querySelectorAll(".wind");
+            var humidities = daysSectEl.querySelectorAll(".humidity");
 
-            // first title
-            var firstTitleEl = citySectEl.querySelector('#city-title');
-            var dt_txt = data.list[0].dt_txt.split(' ')[0];
-            var dt_txt_arr = dt_txt.split('-');
-            var date = dt_txt_arr[1].concat("/", dt_txt_arr[2], "/", dt_txt_arr[0]);
-            console.log(date);
+            for (var i = 0; i < 5; i++) {
+                var curr = data.list[i];
+                // date
+                var date = new Date(curr.dt * 1000).toLocaleDateString("en-US");
+                currCity.days[i].date = date;
+                dates[i].textContent = date;
 
-            var title =  currCity.name.concat(" (" + date + ")");
-            console.log(title);
-            firstTitleEl.textContent = title;
-            
-            // first icon
-            currCity.icon = "http://openweathermap.org/img/w/" + data.list[0].weather[0].icon + ".png"
-            var firstIconEl = citySectEl.querySelector('.icon');
-            firstIconEl.setAttribute("src", currCity.icon);
+                // icon
+                var icon = "http://openweathermap.org/img/w/" + curr.weather[0].icon + ".png";
+                currCity.days[i].icon = icon;
+                icons[i].setAttribute("src", icon);
 
-            // first temp
+                // temp
+                var temp = curr.main.temp;
+                currCity.days[i].temp = temp;
+                temps[i].textContent = "Temp: " + temp + " °F";
+
+                // wind
+                var wind = curr.wind.speed;
+                currCity.days[i].wind = wind;
+                winds[i].textContent = "Wind: " + wind + " MPH";
+
+                // humidity
+                var humidity = curr.main.humidity;
+                currCity.days[i].humidity = humidity;
+                humidities[i].textContent = "Humidity: " + currCity.humidity + "%";
+
+            }
         })
 }
 
