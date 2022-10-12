@@ -105,13 +105,15 @@ function getApiToday(event) {
 
     fetch(queryURL)
         .then(function (response) {
-            return response.json();
+            if (response.status === 404) {
+                changeVisibility("hidden");
+            } else {
+                return response.json();
+            }
         })
         .then(function (data) {
             cityInputEl.value = "";
             console.log(data);
-
-            // Add check for if city does not exist
 
             // first title
             var firstTitleEl = citySectEl.querySelector('#city-title');
@@ -196,7 +198,7 @@ function getApiDays() {
             }
             console.log(currCity);
 
-            changeVisibility();
+            changeVisibility("visible");
 
             createCityButton();
         })
@@ -234,7 +236,7 @@ function storeCity() {
 // Store new city data
 function storeNewCityData(index) {
     cities[index].city = JSON.parse(JSON.stringify(currCity));
-    
+
     localStorage.setItem("cities", JSON.stringify(cities));
 }
 
@@ -246,7 +248,7 @@ function getCityData(event) {
         console.log("not a button");
         return;
     }
-    changeVisibility();
+    changeVisibility("visible");
 
     var key = button.getAttribute('data-key');
     console.log(key);
@@ -311,8 +313,8 @@ function setCityData(city) {
 }
 
 // change visibility to shown
-function changeVisibility() {
-    if (citySectEl.getAttribute('data-visibility') === "hidden") {
+function changeVisibility(visibility) {
+    if (visibility === "visible") {
         citySectEl.setAttribute('data-visibility', 'visible');
         citySectEl.setAttribute('style', 'display: inline');
 
@@ -321,6 +323,15 @@ function changeVisibility() {
 
         daysSectEl.setAttribute('data-visibility', 'visible');
         daysSectEl.setAttribute('style', 'display: flex');
+    } else {
+        citySectEl.setAttribute('data-visibility', 'hidden');
+        citySectEl.setAttribute('style', 'display: none');
+
+        daysTitleSectEl.setAttribute('data-visibility', 'hidden');
+        daysTitleSectEl.setAttribute('style', 'display: none');
+
+        daysSectEl.setAttribute('data-visibility', 'hidden');
+        daysSectEl.setAttribute('style', 'display: none');
     }
 }
 
