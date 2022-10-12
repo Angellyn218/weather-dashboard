@@ -111,6 +111,8 @@ function getApiToday(event) {
             cityInputEl.value = "";
             console.log(data);
 
+            // Add check for if city does not exist
+
             // first title
             var firstTitleEl = citySectEl.querySelector('#city-title');
             currDate = new Date(data.dt * 1000).toLocaleDateString("en-US"); 
@@ -204,7 +206,8 @@ function getApiDays() {
 function createCityButton() {
     for (var i = 0; i < cities.length; i++) {
         if(cities[i].key === currKey) {
-            storeNewCityData();
+            storeNewCityData(i);
+            return;
         }
     }
     var buttonEl = document.createElement('button');
@@ -225,6 +228,13 @@ function storeCity() {
     city.city = JSON.parse(JSON.stringify(currCity));
     cities.push(city);
 
+    localStorage.setItem("cities", JSON.stringify(cities));
+}
+
+// Store new city data
+function storeNewCityData(index) {
+    cities[index].city = JSON.parse(JSON.stringify(currCity));
+    
     localStorage.setItem("cities", JSON.stringify(cities));
 }
 
