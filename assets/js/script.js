@@ -202,7 +202,11 @@ function getApiDays() {
 
 // create button for a city
 function createCityButton() {
-    // <button type="submit" class="btn" id="search-btn">Search</button>
+    for (var i = 0; i < cities.length; i++) {
+        if(cities[i].key === currKey) {
+            storeNewCityData();
+        }
+    }
     var buttonEl = document.createElement('button');
     buttonEl.setAttribute('class', 'btn');
     buttonEl.setAttribute('data-key', currKey);
