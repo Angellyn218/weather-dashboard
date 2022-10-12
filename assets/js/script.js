@@ -105,7 +105,7 @@ function getApiToday(event) {
 
     fetch(queryURL)
         .then(function (response) {
-            if (response.status === 404) {
+            if (!response.ok) {
                 changeVisibility("hidden");
             } else {
                 return response.json();
