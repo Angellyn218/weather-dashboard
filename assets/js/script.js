@@ -101,7 +101,7 @@ function getApiToday(event) {
 
     currKey = cityInputEl.value;
 
-    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + currKey + "&units=imperial&appid=" + APIKey;
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + currKey + "&units=imperial&appid=" + APIKey;
 
     fetch(queryURL)
         .then(function (response) {
@@ -126,7 +126,7 @@ function getApiToday(event) {
             currCity.title = title;
             
             // first icon
-            currCity.icon = "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png"
+            currCity.icon = "https://openweathermap.org/img/w/" + data.weather[0].icon + ".png"
             var firstIconEl = citySectEl.querySelector('.icon');
             firstIconEl.setAttribute("src", currCity.icon);
 
@@ -153,7 +153,7 @@ function getApiToday(event) {
 // input data into days sect
 function getApiDays() {
 
-    var queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + currKey + "&units=imperial&appid=" + APIKey;
+    var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + currKey + "&units=imperial&appid=" + APIKey;
 
     fetch(queryURL)
         .then(function (response) {
@@ -176,7 +176,7 @@ function getApiDays() {
                 dates[i].textContent = date;
 
                 // icon
-                var icon = "http://openweathermap.org/img/w/" + curr.weather[0].icon + ".png";
+                var icon = "https://openweathermap.org/img/w/" + curr.weather[0].icon + ".png";
                 currCity.days[i].icon = icon;
                 icons[i].setAttribute("src", icon);
 
